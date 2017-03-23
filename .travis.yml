@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- 7.0
+- 6.0
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: ale.co1989@gmail.com
+  api_key:
+    secure: HHTP5+HbOPVf8YXYNrDIrF60MWcbJrpYoqMkC2J7AnsimspnX88lVJKW1QZ8rw0oVUNaWyfrMw5EyD0KpKq9/Yyz5WtMBK2Y0O/WmeWdb+/TXgIx1jco/TOo/lk2DEHgzIJ9dYDllzvpmTnPy3EU3HMPyA6rtFzd0NnAcuE5omUoMaJP3pucBP8foIv2R8P0Tv1TRHvJy5evxOC8Wou8y2n0/mgSuSK357xuWuFCqFiwhAfCv47BGsCVaxQ6E9xFoMPsO/1Wha0Ly+Zkrc43KKre/3DVYq+6oR3vHcKy69cUBVawIUfmuM4cmh5NQQrKNyf8YKavuSpdxdMBbY4W+SM6c4yrzayGkAfho4QYhwoI8M1+6xYUff2NMi1cGEjIE77y9JiquTWWTeKJBf0HPcVQOGmzg8gdpOD7rdV5VCujh2JF9w5WffyDukSCe/rdak4nnVV70Q1oklLevKji0cg0sB8pJ8Y5JledfzMUZgXGEotp6CFOXDI5+KsVRGnf+C+3Q6YC4IzquAiejOXmg9IGeOVLqC1NWuMLpQDge6ZaHhu0pZfYooXaGjDtGUWgTAgZd5plKDb+PTPWx4D3tfmCgPLTrxHJtI9wvr6ecG1Uxk/biMtvkQkBBDdGiHpMRaDemct++ppP3gZg6H7AIKn3jO/MMCKKvlKOBZzb0Eo=
+  on:
+    repo: alessiocoser/promise-filesystem
+    tags: false
+    branch: master
+
