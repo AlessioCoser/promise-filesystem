@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/AlessioCoser/promise-filesystem#readme",
   "devDependencies": {
-    "m.test": "0.0.54"
+    "m.test": "0.0.54",
+    "string-to-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.31.0"
   }
 }
