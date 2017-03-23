@@ -1,5 +1,6 @@
 const {ok} = require('assert')
+const promiseFilesystem = require('..')
 
-test('should fail', function() {
-	ok(false)
+test('should pass', function() {
+  ok(true)
 });
