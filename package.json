@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "m.test"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/AlessioCoser/promise-filesystem/issues"
   },
-  "homepage": "https://github.com/AlessioCoser/promise-filesystem#readme"
+  "homepage": "https://github.com/AlessioCoser/promise-filesystem#readme",
+  "devDependencies": {
+    "m.test": "0.0.54"
+  }
 }
