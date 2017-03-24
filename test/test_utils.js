@@ -10,7 +10,7 @@ module.exports = {
   jsonPayload
 }
 
-function deleteS3Object(bucket, key) {
+function deleteS3Object (bucket, key) {
   var s3 = new aws.S3({signatureVersion: 'v4'})
 
   return new Promise((resolve, reject) => {
@@ -21,7 +21,7 @@ function deleteS3Object(bucket, key) {
   })
 }
 
-function putS3Object(bucket, key, body) {
+function putS3Object (bucket, key, body) {
   var s3 = new aws.S3({signatureVersion: 'v4'})
   return new Promise((resolve, reject) => {
     s3.putObject({
@@ -32,7 +32,7 @@ function putS3Object(bucket, key, body) {
   })
 }
 
-function readS3Object(bucket, key) {
+function readS3Object (bucket, key) {
   var s3 = new aws.S3({signatureVersion: 'v4'})
 
   return new Promise((resolve, reject) => {
@@ -43,7 +43,7 @@ function readS3Object(bucket, key) {
   })
 }
 
-function waitUntilS3ObjectExists(bucket, key) {
+function waitUntilS3ObjectExists (bucket, key) {
   return new Promise((resolve, reject) => {
     var retries = 0
     var intervalId = setInterval(() => {
@@ -63,7 +63,7 @@ function waitUntilS3ObjectExists(bucket, key) {
   })
 }
 
-function jsonItem(name) {
+function jsonItem (name) {
   return {
     'itunes:keywords': [`Channel`],
     'itunes:subtitle': [`${name} Title`],
@@ -71,17 +71,17 @@ function jsonItem(name) {
     link: [`http://${name}.link`],
     url: [`http://${name}.url`],
     pubDate: 'Fri, 09 Dec 2016 14:10:15 +0000',
-    enclosure: [{ '$': {url: `http://${name}.enc`, type: 'audio/mpeg', length: 5000 }}]
+    enclosure: [{'$': {url: `http://${name}.enc`, type: 'audio/mpeg', length: 5000}}]
   }
 }
 
-function invalidItem() {
+function invalidItem () {
   return {
     'itunes:keywords': [`Channel`]
   }
 }
 
-function jsonPayload(items) {
+function jsonPayload (items) {
   if (items === null) {
     return null
   }

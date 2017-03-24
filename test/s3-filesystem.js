@@ -1,4 +1,4 @@
-const {equal, ok} = require('assert')
+const {equal} = require('assert')
 const stringToStream = require('string-to-stream')
 const testUtils = require('./test_utils')
 const S3FileSystem = require('..').s3
