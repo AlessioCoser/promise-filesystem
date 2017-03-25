@@ -53,4 +53,15 @@ test('LocalFileSystem', function () {
     })
     .catch(done)
   }, 30000)
+
+  test.timeout('get file head from local folder', function (done) {
+    var localFileSystem = new LocalFileSystem()
+
+    return localFileSystem.head(folder, readFileName)
+    .then(data => {
+      equal(data.ContentLength, '28')
+      done()
+    })
+    .catch(done)
+  }, 30000)
 })
