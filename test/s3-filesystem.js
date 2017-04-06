@@ -11,8 +11,8 @@ test('S3FileSystem', function () {
     testUtils.deleteS3Object(folder, inputFileName)
     .then(() => testUtils.putS3Object(folder, inputFileName, inputContent))
     .then(() => {
-      var s3FileSystem = new S3FileSystem()
-      var data = []
+      const s3FileSystem = new S3FileSystem()
+      const data = []
 
       s3FileSystem.readAsStream(folder, inputFileName)
       .on('data', chunk => data.push(chunk))
@@ -25,8 +25,8 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('writes to S3 Bucket as stream', function (done) {
-    var s3FileSystem = new S3FileSystem()
-    var aStream = stringToStream(inputContent)
+    const s3FileSystem = new S3FileSystem()
+    const aStream = stringToStream(inputContent)
 
     return testUtils.deleteS3Object(folder, inputFileName)
     .then(() => s3FileSystem.writeAsStream(folder, inputFileName, aStream))
@@ -41,7 +41,7 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('reads file from S3 Bucket', function (done) {
-    var s3FileSystem = new S3FileSystem()
+    const s3FileSystem = new S3FileSystem()
 
     return s3FileSystem.read(folder, inputFileName)
     .then(data => {
@@ -54,7 +54,7 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('get file head from S3 Bucket', function (done) {
-    var s3FileSystem = new S3FileSystem()
+    const s3FileSystem = new S3FileSystem()
 
     return s3FileSystem.head(folder, inputFileName)
     .then(data => {
@@ -65,7 +65,7 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('writes file to S3 Bucket', function (done) {
-    var s3FileSystem = new S3FileSystem()
+    const s3FileSystem = new S3FileSystem()
 
     return testUtils.deleteS3Object(folder, inputFileName)
     .then(() => s3FileSystem.write(folder, inputFileName, inputContent))
