@@ -6,6 +6,7 @@ const LocalFileSystem = require('..').local
 const folder = 'test/promise-filesystem'
 const readFileName = 'file.txt'
 const writeFileName = 'write-as-stream.txt'
+const inputContent = 'Lorem ipsum dolor sit amet.\n'
 
 test('LocalFileSystem', function () {
   test.timeout('reads from Local Folder as stream', function (done) {
@@ -15,14 +16,14 @@ test('LocalFileSystem', function () {
     localFileSystem.readAsStream(folder, readFileName)
     .on('data', chunk => data.push(chunk))
     .on('end', () => {
-      equal(String.prototype.concat(data), 'Lorem ipsum dolor sit amet.\n')
+      equal(String.prototype.concat(data), inputContent)
       done()
     })
   }, 30000)
 
   test.timeout('writes to Local Folder as stream', function (done) {
     var localFileSystem = new LocalFileSystem()
-    var aStream = stringToStream('Lorem ipsum dolor sot amet.\n')
+    var aStream = stringToStream(inputContent)
 
     localFileSystem.writeAsStream(folder, writeFileName, aStream)
     .then((data) => {
@@ -32,7 +33,7 @@ test('LocalFileSystem', function () {
         deepEqual(data.Location, `${folder}/${writeFileName}`)
         deepEqual(data.FileName, writeFileName)
         deepEqual(data.Folder, folder)
-        equal(fileContent, 'Lorem ipsum dolor sot amet.\n')
+        equal(fileContent, inputContent)
 
         fs.unlinkSync(`${folder}/${writeFileName}`)
         done()
@@ -48,7 +49,7 @@ test('LocalFileSystem', function () {
     .then(data => {
       let fileContent = (data.Body) ? data.Body.toString() : ''
 
-      equal(fileContent, 'Lorem ipsum dolor sit amet.\n')
+      equal(fileContent, inputContent)
       done()
     })
     .catch(done)
@@ -61,6 +62,22 @@ test('LocalFileSystem', function () {
     .then(data => {
       equal(data.ContentLength, '28')
       done()
+    })
+    .catch(done)
+  }, 30000)
+
+  test.timeout('writes to Local Folder', function (done) {
+    var localFileSystem = new LocalFileSystem()
+
+    localFileSystem.write(folder, writeFileName, inputContent)
+    .then(() => {
+      setTimeout(() => {
+        var fileContent = fs.readFileSync(`${folder}/${writeFileName}`, 'utf8')
+
+        equal(fileContent, inputContent)
+        fs.unlinkSync(`${folder}/${writeFileName}`)
+        done()
+      }, 1000)
     })
     .catch(done)
   }, 30000)
