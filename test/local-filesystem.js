@@ -55,6 +55,20 @@ test('LocalFileSystem', function () {
     .catch(done)
   }, 30000)
 
+  test.timeout('reads a range of file from local folder', function (done) {
+    var localFileSystem = new LocalFileSystem()
+    var HTTPRangeHeader = 'bytes=0-3'
+
+    return localFileSystem.read(folder, readFileName, HTTPRangeHeader)
+    .then(data => {
+      let fileContent = (data.Body) ? data.Body.toString() : ''
+
+      equal(fileContent, 'Lore')
+      done()
+    })
+    .catch(done)
+  }, 30000)
+
   test.timeout('get file head from local folder', function (done) {
     var localFileSystem = new LocalFileSystem()
 
