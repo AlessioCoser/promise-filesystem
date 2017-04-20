@@ -95,4 +95,17 @@ test('LocalFileSystem', function () {
     })
     .catch(done)
   }, 30000)
+
+  test.timeout('deletes file from Local Folder', function (done) {
+    var localFileSystem = new LocalFileSystem()
+    var fileToDelete = 'file-to-delete.txt'
+
+    return localFileSystem.write(folder, fileToDelete, inputContent)
+    .then(() => localFileSystem.delete(folder, fileToDelete))
+    .then((data) => {
+      equal(fs.existsSync(`${folder}/${fileToDelete}`), false)
+      done()
+    })
+    .catch(done)
+  }, 30000)
 })
