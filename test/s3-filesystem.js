@@ -1,4 +1,4 @@
-const {equal} = require('assert')
+const {equal, deepEqual} = require('assert')
 const stringToStream = require('string-to-stream')
 const testUtils = require('./test_utils')
 const S3FileSystem = require('..').s3
@@ -88,6 +88,19 @@ test('S3FileSystem', function () {
       let fileContent = (data.Body) ? data.Body.toString() : ''
 
       equal(fileContent, inputContent)
+      done()
+    })
+    .catch(done)
+  }, 30000)
+
+  test.timeout('deletes a file from S3 Bucket', function (done) {
+    var s3FileSystem = new S3FileSystem()
+
+    return s3FileSystem.write(folder, 'delete-me.txt', inputContent)
+    .then(() => testUtils.waitUntilS3ObjectExists(folder, 'delete-me.txt'))
+    .then(() => s3FileSystem.delete(folder, 'delete-me.txt'))
+    .then((data) => {
+      deepEqual(data, {})
       done()
     })
     .catch(done)
