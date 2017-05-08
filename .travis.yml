@@ -2,6 +2,8 @@ language: node_js
 node_js:
 - 7.0
 - 6.0
+before_install:
+  - npm install aws-sdk
 deploy:
   provider: npm
   skip_cleanup: true
