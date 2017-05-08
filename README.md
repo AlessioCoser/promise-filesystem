@@ -25,10 +25,30 @@ export AWS_SECRET_ACCESS_KEY = [your_aws_secret_key]
 - readAsStream
 - writeAsStream
 
+### head
+```js
+const FileSystem = require('promise-filesystem')
+var localFileSystem = new FileSystem.local()
+
+return localFileSystem.head(folder, fileName)
+.then(data => {
+  console.log(data)
+  /*
+    {
+      AcceptRanges: 'bytes',
+      LastModified: 2017-05-08T12:32:16.000Z,
+      ContentLength: 28,
+      ETag: null,
+      ContentType: null,
+      Metadata: {}
+    }
+  */
+})
+```
+
 ### readAsStream
 ```js
 const FileSystem = require('promise-filesystem')
-
 var localFileSystem = new FileSystem.local()
 var stream = localFileSystem.readAsStream(folder, fileName)
 
@@ -40,7 +60,6 @@ stream.on('data', function(chunk) {
 ### writeAsStream
 ```js
 const FileSystem = require('promise-filesystem')
-
 var localFileSystem = new FileSystem.local()
 var myStream = getMySuperStream()
 
