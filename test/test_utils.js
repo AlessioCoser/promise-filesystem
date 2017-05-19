@@ -1,4 +1,4 @@
-var aws = require('aws-sdk')
+const aws = require('aws-sdk')
 
 module.exports = {
   deleteS3Object,
@@ -11,7 +11,7 @@ module.exports = {
 }
 
 function deleteS3Object (bucket, key) {
-  var s3 = new aws.S3({signatureVersion: 'v4'})
+  const s3 = new aws.S3({signatureVersion: 'v4'})
 
   return new Promise((resolve, reject) => {
     s3.deleteObject({
@@ -22,7 +22,7 @@ function deleteS3Object (bucket, key) {
 }
 
 function putS3Object (bucket, key, body) {
-  var s3 = new aws.S3({signatureVersion: 'v4'})
+  const s3 = new aws.S3({signatureVersion: 'v4'})
   return new Promise((resolve, reject) => {
     s3.putObject({
       Bucket: bucket,
@@ -33,7 +33,7 @@ function putS3Object (bucket, key, body) {
 }
 
 function readS3Object (bucket, key) {
-  var s3 = new aws.S3({signatureVersion: 'v4'})
+  const s3 = new aws.S3({signatureVersion: 'v4'})
 
   return new Promise((resolve, reject) => {
     s3.getObject({
@@ -45,8 +45,8 @@ function readS3Object (bucket, key) {
 
 function waitUntilS3ObjectExists (bucket, key) {
   return new Promise((resolve, reject) => {
-    var retries = 0
-    var intervalId = setInterval(() => {
+    let retries = 0
+    let intervalId = setInterval(() => {
       readS3Object(bucket, key)
       .then((body) => {
         clearInterval(intervalId)

@@ -27,10 +27,10 @@ export AWS_SECRET_ACCESS_KEY = [your_aws_secret_key]
 const FileSystem = require('promise-filesystem')
 
 // initialize local file system
-var localFileSystem = new FileSystem.local()
+const localFileSystem = new FileSystem.local()
 
 // initialize s3 file system
-var s3FileSystem = new FileSystem.s3()
+const s3FileSystem = new FileSystem.s3()
 ```
 
 ## Features
@@ -45,7 +45,7 @@ var s3FileSystem = new FileSystem.s3()
 ### head
 ```js
 const FileSystem = require('promise-filesystem')
-var localFileSystem = new FileSystem.local()
+const localFileSystem = new FileSystem.local()
 
 return localFileSystem.head(folder, fileName)
 .then(function (data) {
@@ -62,7 +62,7 @@ return localFileSystem.head(folder, fileName)
 ### read
 ```js
 const FileSystem = require('promise-filesystem')
-var localFileSystem = new FileSystem.local()
+const localFileSystem = new FileSystem.local()
 
 return localFileSystem.read(folder, fileName)
 .then(function (data) {
@@ -74,7 +74,7 @@ return localFileSystem.read(folder, fileName)
 ### read (with range)
 ```js
 const FileSystem = require('promise-filesystem')
-var localFileSystem = new FileSystem.local()
+const localFileSystem = new FileSystem.local()
 
 return localFileSystem.read(folder, fileName, 'bytes=0-3')
 .then(function (data) {
@@ -86,8 +86,8 @@ return localFileSystem.read(folder, fileName, 'bytes=0-3')
 ### write
 ```js
 const FileSystem = require('promise-filesystem')
-var localFileSystem = new FileSystem.local()
-var content = 'Lorem ipsum dolor sit amet.\n'
+const localFileSystem = new FileSystem.local()
+let content = 'Lorem ipsum dolor sit amet.\n'
 
 return localFileSystem.write(folder, fileName, content)
 .then(function () {
@@ -106,7 +106,7 @@ return localFileSystem.write(folder, fileName, content)
 ### delete
 ```js
 const FileSystem = require('promise-filesystem')
-var localFileSystem = new FileSystem.local()
+const localFileSystem = new FileSystem.local()
 
 return localFileSystem.delete(folder, fileName)
 .then(function () {
@@ -125,8 +125,8 @@ return localFileSystem.delete(folder, fileName)
 ### readAsStream
 ```js
 const FileSystem = require('promise-filesystem')
-var localFileSystem = new FileSystem.local()
-var stream = localFileSystem.readAsStream(folder, fileName)
+const localFileSystem = new FileSystem.local()
+let stream = localFileSystem.readAsStream(folder, fileName)
 
 stream.on('data', function(chunk) {
   console.log(chunk)
@@ -136,8 +136,8 @@ stream.on('data', function(chunk) {
 ### writeAsStream
 ```js
 const FileSystem = require('promise-filesystem')
-var localFileSystem = new FileSystem.local()
-var myStream = getMySuperStream()
+const localFileSystem = new FileSystem.local()
+let myStream = getMySuperStream()
 
 localFileSystem.writeAsStream(folder, fileName, myStream)
 .then(function (data) {

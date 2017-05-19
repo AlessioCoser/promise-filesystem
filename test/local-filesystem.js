@@ -10,8 +10,8 @@ const inputContent = 'Lorem ipsum dolor sit amet.\n'
 
 test('LocalFileSystem', function () {
   test.timeout('reads from Local Folder as stream', function (done) {
-    var localFileSystem = new LocalFileSystem()
-    var data = []
+    const localFileSystem = new LocalFileSystem()
+    let data = []
 
     localFileSystem.readAsStream(folder, readFileName)
     .on('data', chunk => data.push(chunk))
@@ -22,13 +22,13 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('writes to Local Folder as stream', function (done) {
-    var localFileSystem = new LocalFileSystem()
-    var aStream = stringToStream(inputContent)
+    const localFileSystem = new LocalFileSystem()
+    let aStream = stringToStream(inputContent)
 
     localFileSystem.writeAsStream(folder, writeFileName, aStream)
     .then((data) => {
       setTimeout(() => {
-        var fileContent = fs.readFileSync(`${folder}/${writeFileName}`, 'utf8')
+        let fileContent = fs.readFileSync(`${folder}/${writeFileName}`, 'utf8')
 
         deepEqual(data.Location, `${folder}/${writeFileName}`)
         deepEqual(data.FileName, writeFileName)
@@ -43,7 +43,7 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('reads file from Local Folder', function (done) {
-    var localFileSystem = new LocalFileSystem()
+    const localFileSystem = new LocalFileSystem()
 
     return localFileSystem.read(folder, readFileName)
     .then(data => {
@@ -56,8 +56,8 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('reads a range of file from local folder', function (done) {
-    var localFileSystem = new LocalFileSystem()
-    var HTTPRangeHeader = 'bytes=0-3'
+    const localFileSystem = new LocalFileSystem()
+    let HTTPRangeHeader = 'bytes=0-3'
 
     return localFileSystem.read(folder, readFileName, HTTPRangeHeader)
     .then(data => {
@@ -70,7 +70,7 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('get file head from local folder', function (done) {
-    var localFileSystem = new LocalFileSystem()
+    const localFileSystem = new LocalFileSystem()
 
     return localFileSystem.head(folder, readFileName)
     .then(data => {
@@ -81,12 +81,12 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('writes to Local Folder', function (done) {
-    var localFileSystem = new LocalFileSystem()
+    const localFileSystem = new LocalFileSystem()
 
     localFileSystem.write(folder, writeFileName, inputContent)
     .then(() => {
       setTimeout(() => {
-        var fileContent = fs.readFileSync(`${folder}/${writeFileName}`, 'utf8')
+        let fileContent = fs.readFileSync(`${folder}/${writeFileName}`, 'utf8')
 
         equal(fileContent, inputContent)
         fs.unlinkSync(`${folder}/${writeFileName}`)
@@ -97,8 +97,8 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('deletes file from Local Folder', function (done) {
-    var localFileSystem = new LocalFileSystem()
-    var fileToDelete = 'file-to-delete.txt'
+    const localFileSystem = new LocalFileSystem()
+    let fileToDelete = 'file-to-delete.txt'
 
     return localFileSystem.write(folder, fileToDelete, inputContent)
     .then(() => localFileSystem.delete(folder, fileToDelete))
