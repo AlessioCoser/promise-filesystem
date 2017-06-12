@@ -1,7 +1,7 @@
 const {equal, deepEqual} = require('assert')
 const fs = require('fs')
 const stringToStream = require('string-to-stream')
-const LocalFileSystem = require('..').local
+const localFileSystem = require('..')()
 
 const folder = 'test/promise-filesystem'
 const readFileName = 'file.txt'
@@ -10,7 +10,6 @@ const inputContent = 'Lorem ipsum dolor sit amet.\n'
 
 test('LocalFileSystem', function () {
   test.timeout('reads from Local Folder as stream', function (done) {
-    const localFileSystem = new LocalFileSystem()
     let data = []
 
     localFileSystem.readAsStream(folder, readFileName)
@@ -22,7 +21,6 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('writes to Local Folder as stream', function (done) {
-    const localFileSystem = new LocalFileSystem()
     let aStream = stringToStream(inputContent)
 
     localFileSystem.writeAsStream(folder, writeFileName, aStream)
@@ -43,8 +41,6 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('reads file from Local Folder', function (done) {
-    const localFileSystem = new LocalFileSystem()
-
     return localFileSystem.read(folder, readFileName)
     .then(data => {
       let fileContent = (data.Body) ? data.Body.toString() : ''
@@ -56,7 +52,6 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('reads a range of file from local folder', function (done) {
-    const localFileSystem = new LocalFileSystem()
     let HTTPRangeHeader = 'bytes=0-3'
 
     return localFileSystem.read(folder, readFileName, HTTPRangeHeader)
@@ -70,8 +65,6 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('get file head from local folder', function (done) {
-    const localFileSystem = new LocalFileSystem()
-
     return localFileSystem.head(folder, readFileName)
     .then(data => {
       equal(data.ContentLength, '28')
@@ -81,8 +74,6 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('writes to Local Folder', function (done) {
-    const localFileSystem = new LocalFileSystem()
-
     localFileSystem.write(folder, writeFileName, inputContent)
     .then(() => {
       setTimeout(() => {
@@ -97,7 +88,6 @@ test('LocalFileSystem', function () {
   }, 30000)
 
   test.timeout('deletes file from Local Folder', function (done) {
-    const localFileSystem = new LocalFileSystem()
     let fileToDelete = 'file-to-delete.txt'
 
     return localFileSystem.write(folder, fileToDelete, inputContent)

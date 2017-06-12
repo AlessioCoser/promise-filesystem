@@ -1,7 +1,8 @@
 const {equal, deepEqual} = require('assert')
 const stringToStream = require('string-to-stream')
 const testUtils = require('./test_utils')
-const S3FileSystem = require('..').s3
+const aws = require('aws-sdk')
+const s3FileSystem = require('..')(aws.S3)
 const folder = 'promise-filesystem'
 const inputFileName = 'file.txt'
 const inputContent = 'Lorem ipsum dolor sit amet.'
@@ -11,7 +12,6 @@ test('S3FileSystem', function () {
     testUtils.deleteS3Object(folder, inputFileName)
     .then(() => testUtils.putS3Object(folder, inputFileName, inputContent))
     .then(() => {
-      const s3FileSystem = new S3FileSystem()
       let data = []
 
       s3FileSystem.readAsStream(folder, inputFileName)
@@ -25,7 +25,6 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('writes to S3 Bucket as stream', function (done) {
-    const s3FileSystem = new S3FileSystem()
     let aStream = stringToStream(inputContent)
 
     return testUtils.deleteS3Object(folder, inputFileName)
@@ -41,8 +40,6 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('reads file from S3 Bucket', function (done) {
-    const s3FileSystem = new S3FileSystem()
-
     return s3FileSystem.read(folder, inputFileName)
     .then(data => {
       let fileContent = (data.Body) ? data.Body.toString() : ''
@@ -54,7 +51,6 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('reads a range of file from S3 Bucket', function (done) {
-    const s3FileSystem = new S3FileSystem()
     let HTTPRangeHeader = 'bytes=0-3'
 
     return s3FileSystem.read(folder, inputFileName, HTTPRangeHeader)
@@ -68,8 +64,6 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('get file head from S3 Bucket', function (done) {
-    const s3FileSystem = new S3FileSystem()
-
     return s3FileSystem.head(folder, inputFileName)
     .then(data => {
       equal(data.ContentLength, '27')
@@ -79,8 +73,6 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('writes file to S3 Bucket', function (done) {
-    const s3FileSystem = new S3FileSystem()
-
     return testUtils.deleteS3Object(folder, inputFileName)
     .then(() => s3FileSystem.write(folder, inputFileName, inputContent))
     .then(() => testUtils.waitUntilS3ObjectExists(folder, inputFileName))
@@ -94,8 +86,6 @@ test('S3FileSystem', function () {
   }, 30000)
 
   test.timeout('deletes a file from S3 Bucket', function (done) {
-    const s3FileSystem = new S3FileSystem()
-
     return s3FileSystem.write(folder, 'delete-me.txt', inputContent)
     .then(() => testUtils.waitUntilS3ObjectExists(folder, 'delete-me.txt'))
     .then(() => s3FileSystem.delete(folder, 'delete-me.txt'))
