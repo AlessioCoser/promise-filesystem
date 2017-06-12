@@ -11,7 +11,7 @@ Provides promise based filesystem API for node.js. This is also an adapter for r
 
 ## Use AWS S3
 
-In order to work with AWS S3 you have to install PEER DEPENDENCY `aws-sdk`
+In order to work with AWS S3 you have to pass aws-s3 sdk to promise-filesystem:
 ```
 npm install --save aws-sdk
 ```
